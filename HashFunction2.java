@@ -11,15 +11,21 @@ public class HashFunction2 {
 		HashFunction2 Func1 = new HashFunction2(60);
 		String [] abc = {"5","4","22","6","24","56","44","15","0"};
 		String [] abc2 = {"236","6666","1098","2","4677","65432","1001","817","18","82","71","99","109","152","111","100","8282","104","45"};
+		String [] abc3 = {"1","10","30","28","26","333","971","31","14","15","39","240","250","8411"};
 		Func1.hashFunction1(abc, Func1.theArray);
 		Func1.displayTheStack();
         Func1.hashFunction2(abc2, Func1.theArray);
         Func1.displayTheStack();
-        Func1.increaseArraySize(200);
+        //Func1.increaseArraySize(70);
+        //Func1.displayTheStack();
+        Func1.hashFunction3(abc3, Func1.theArray);
+        Func1.displayTheStack();
 
         Func1.findKey("44");
         Func1.findKey("1");
-        Func1.findKey("236");
+        Func1.findKey("82");
+        Func1.findKey("240");
+        Func1.findKey2("240");
         
 
         System.out.println(Func1.theArray.length);
@@ -38,7 +44,7 @@ public class HashFunction2 {
 		for(int i=0;i<stringForArray.length;i++){
 			String newElement = stringForArray[i];
 			int num = Integer.parseInt(newElement) % arraySize;
-			System.out.println("Modulus Index =" + num );
+			System.out.println("Modulus Index of " + newElement + " = " + num );
 			while(!(theArray[num]=="-1")){
 				num +=1;
 				System.out.println(num-1 + " has a collsion, try " + num);
@@ -46,7 +52,21 @@ public class HashFunction2 {
 			theArray[num] = newElement;
 		}
 	}
-	
+
+	public void hashFunction3(String[] stringForArray, String[] theArray){
+		for(int i=0;i<stringForArray.length;i++){
+			String newElement = stringForArray[i];
+			int num = Integer.parseInt(newElement) % arraySize;
+			System.out.println("Modulus Index of " + newElement + " = " + num );
+			while(!(theArray[num]=="-1")){
+				int num1 = num;
+				num = num + (7 - Integer.parseInt(newElement) % 7);
+				System.out.println(num1 + " has a collsion, try " + num);
+			}
+			theArray[num] = newElement;
+		}
+	}
+
 	public String findKey(String key){
 		int index = Integer.parseInt(key)%arraySize;
 		while((theArray[index]!="-1")){
@@ -57,6 +77,20 @@ public class HashFunction2 {
 			index++;
 			System.out.println("try another one: " + index);
 			index %= arraySize;
+			
+			}
+		return null;
+	}
+
+	public String findKey2(String key){
+		int index = Integer.parseInt(key)%arraySize;
+		while((theArray[index]!="-1")){
+			if(theArray[index]==key){
+				System.out.println(key + " was found in" + index);
+				return theArray[index];
+			}
+			index = index + (7 - Integer.parseInt(key) % 7);
+			System.out.println("try another one: " + index);
 			
 			}
 		return null;
