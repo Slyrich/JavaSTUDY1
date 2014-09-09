@@ -22,7 +22,50 @@ class Neighbor {
 }
 
 class NeighborIterator{
+	Neighbor currentNeighbor;
+	Neighbor previousNeighbor;
 	
+	DoubleEndedLinkList theNeighbors;
+	
+	NeighborIterator(DoubleEndedLinkList theNeighbors){
+		this.theNeighbors = theNeighbors;
+		currentNeighbor = theNeighbors.firstLink;
+		previousNeighbor = theNeighbors.lastLink;
+		
+	}
+	
+	public boolean hasNext(){
+		if (currentNeighbor.next != null){
+			return true;
+		}
+		return false;
+	}
+
+	public Neighbor next(){
+		if(hasNext()){
+			previousNeighbor = currentNeighbor;
+			currentNeighbor = currentNeighbor.next;
+			
+			return currentNeighbor.next;
+		}
+		return null;
+	}
+	
+	public void remove(){
+		if(currentNeighbor == theNeighbors.firstLink){
+			theNeighbors.firstLink = currentNeighbor.next;			
+		}
+		else{
+			previousNeighbor.next = currentNeighbor.next;
+			if(currentNeighbor.next == null){
+				currentNeighbor = theNeighbors.firstLink;
+				previousNeighbor = null;
+				
+			}else{
+				currentNeighbor = currentNeighbor.next;
+			}
+		}
+	}
 }
 
 public class DoubleEndedLinkList{
@@ -134,6 +177,38 @@ public class DoubleEndedLinkList{
 		theLinkList.insertAfterKey("Jackie Chan", 20, 9);
 		
 		theLinkList.display();
+		
+		
+		System.out.println();
+		System.out.println();
+		
+		NeighborIterator neighbors = new NeighborIterator(theLinkList);
+		neighbors.currentNeighbor.display();
+		
+		System.out.println(neighbors.hasNext());
+		
+		neighbors.next();
+		
+		neighbors.currentNeighbor.display();
+		
+		neighbors.remove();
+		
+		neighbors.currentNeighbor.display();
+		
+		theLinkList.display();
+
+		neighbors.next();
+		neighbors.next();
+		neighbors.next();
+		neighbors.next();
+		neighbors.currentNeighbor.display();	
+		neighbors.next();
+		neighbors.currentNeighbor.display();
+		neighbors.remove();
+		neighbors.currentNeighbor.display();
+		theLinkList.display();
+		
+		
 	}
 	
 	public void display(){
