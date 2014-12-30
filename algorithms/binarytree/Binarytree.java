@@ -36,14 +36,17 @@ public class Binarytree{
 		}
 		
 	}
+	
 	public void changeNode(Node focusNode){
-		
+		//in order search was used here
 		if(focusNode != null){
 			changeNode(focusNode.leftChild);
-			if(head == null){
+			if(head == null){//for the first node, head n tail would be the same
 				head = focusNode;
 				tail = focusNode;	
-			}else{
+			}else{//for other nodes, focusNode would be on the right of current tail,
+				  //current tail would be on the left of focusNode
+				  //focusNode would be the new tail
 				focusNode.leftChild = tail;
 				tail.rightChild = focusNode;
 				tail = focusNode;
@@ -132,17 +135,7 @@ public class Binarytree{
 		newTree.addNode(48, "Navy");
 		newTree.addNode(54, "Airforce");
 		newTree.breathFirstTraversal(newTree.root);
-		System.out.println();
-		newTree.preOrderTraversal(newTree.root);
-		System.out.println();
-		System.out.println(newTree.findNode(20));
-		newTree.changeNode(newTree.root);
-		System.out.println();
-		System.out.println();
-		newTree.readListHead();
-		System.out.println();
-		System.out.println();
-		newTree.readListTail();
+
 
 	}
 	

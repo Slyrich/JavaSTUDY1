@@ -11,7 +11,7 @@ public class Link{
 	}
 	
 	public void display(){
-		System.out.println(bookName + " : " + millionsSold);
+		System.out.println(bookName + " : " + millionsSold+",000,000");
 
 	}
 	
